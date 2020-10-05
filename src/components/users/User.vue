@@ -62,7 +62,7 @@
       </el-pagination>
     </el-card>
 
-    <!-- 添加用户的对话框,:visible.sync控制对话框的显示与隐藏 -->
+    <!-- 点击添加用户之后的对话框,:visible.sync控制对话框的显示与隐藏 -->
     <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
       <!-- 内容主体区域 -->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
@@ -90,7 +90,7 @@
       </span>
     </el-dialog>
 
-    <!-- 修改用户的对话框 -->
+    <!-- 修改用户的对话框,editDialogClosed关闭后重置输入框 -->
     <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
         <el-form-item label="用户名">
@@ -195,7 +195,6 @@ export default {
       if (res.meta.status !== 200) return this.$message.error('获取用户列表失败');
       this.userlist = res.data.users;
       this.total = res.data.total;
-      console.log(this.queryInfo);
     },
     // 更改列表数据的条数
     handleSizeChange(newsize) {
@@ -209,7 +208,6 @@ export default {
     },
     // 监听switch开关状态的改变
     async userstateChange(userinfo) {
-      console.log(userinfo);
       const { data: res } = await this.$http.put(`users/${userinfo.id}/state/${userinfo.mg_state}`);
       if (res.meta.status !== 200) {
         userinfo.mg_state = !userinfo.mg_state;
@@ -231,6 +229,7 @@ export default {
         if (res.meta.status !== 201) {
           return this.$message.error('添加用户失败');
         }
+        console.log(res.meta.status);
         this.$message.success('添加用户成功');
         this.addDialogVisible = false;
         //重新获取用户列表

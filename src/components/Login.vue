@@ -58,7 +58,7 @@ export default {
         //登录成功后的行为
         // 1、将登录成功之后的token保存到客户端的sessionStorage（会话中的存储机制）中
         window.sessionStorage.setItem('token', res.data.token);
-        // 2、通过编程时导航跳转到后台主页
+        // 2、通过编程式导航跳转到后台主页
         this.$router.push('/home');
 
 

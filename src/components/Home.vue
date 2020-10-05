@@ -3,8 +3,8 @@
     <!-- 头部区域 -->
     <el-header>
       <div>
-        <img src="../assets/heima.png" alt="#">
-        <span>电商后台管理系统</span>
+        <!-- <img src="../assets/heima.png" alt="#"> -->
+        <span>QAQ</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
