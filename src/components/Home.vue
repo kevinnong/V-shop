@@ -13,7 +13,17 @@
       <!-- 侧边栏 -->
       <el-aside :width="isCollaspse ? '64px':'200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
-        <el-menu :default-active="activePath" class="el-menu-vertical-demo" background-color="#333744" text-color="#fff" active-text-color="#409EFF" :unique-opened="true" :collapse="isCollaspse" :collapse-transition="false" router>
+        <el-menu
+          :default-active="activePath"
+          class="el-menu-vertical-demo"
+          background-color="#333744"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          :unique-opened="true"
+          :collapse="isCollaspse"
+          :collapse-transition="false"
+          router
+        >
           <!-- 一级菜单 -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <template slot="title">
@@ -21,7 +31,12 @@
               <span>{{item.authName}}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="'/'+subitem.path +'' " v-for="subitem in item.children" :key="subitem.id" @click="savaNavState('/'+ subitem.path)">
+            <el-menu-item
+              :index="'/'+subitem.path +'' "
+              v-for="subitem in item.children"
+              :key="subitem.id"
+              @click="savaNavState('/'+ subitem.path)"
+            >
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{subitem.authName}}</span>
@@ -45,40 +60,40 @@ export default {
       // 左侧菜单数据
       menulist: [],
       iconobj: {
-        '125': 'iconfont icon-user',
-        '103': 'iconfont icon-tijikongjian',
-        '101': 'iconfont icon-shangpin',
-        '102': 'iconfont icon-danju',
-        '145': 'iconfont icon-baobiao',
+        125: "iconfont icon-user",
+        103: "iconfont icon-tijikongjian",
+        101: "iconfont icon-shangpin",
+        102: "iconfont icon-danju",
+        145: "iconfont icon-baobiao",
       },
       isCollaspse: false,
       // 被激活的链接地址
-      activePath: ''
+      activePath: "",
     }
   },
   created() {
     this.getMenuList(),
-      this.activePath = window.sessionStorage.getItem('activePath')
+      (this.activePath = window.sessionStorage.getItem("activePath"))
   },
   methods: {
     logout() {
-      window.sessionStorage.clear();
-      this.$router.push('/login');
+      window.sessionStorage.clear()
+      this.$router.push("/login")
     },
     // 点击按钮实现菜单的折叠和展开
     toggleCollapse() {
       this.isCollaspse = !this.isCollaspse
     },
     savaNavState(activePath) {
-      window.sessionStorage.setItem('activePath', activePath);
-      this.activePath = activePath;
+      window.sessionStorage.setItem("activePath", activePath)
+      this.activePath = activePath
     },
     // 获取所有的菜单
     async getMenuList() {
-      const { data: res } = await this.$http.get('menus');
-      if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
-      this.menulist = res.data;
-    }
+      const { data: res } = await this.$http.get("menus")
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.menulist = res.data
+    },
   },
 }
 </script>
